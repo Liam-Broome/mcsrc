@@ -29,8 +29,7 @@ const decompilerCounter = new BehaviorSubject<number>(0);
 
 export const isDecompiling = decompilerCounter.pipe(
     map(count => count > 0),
-    distinctUntilChanged(),
-    shareReplay({ bufferSize: 1, refCount: true })
+    distinctUntilChanged()
 );
 
 const decompilerOptions: Observable<Options> = removeImports.observable.pipe(
