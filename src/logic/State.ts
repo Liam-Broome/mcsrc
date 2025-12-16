@@ -23,7 +23,7 @@ const getInitialState = (): State => {
   // Check for line number marker (e.g., #L123 or #L10-20)
   let lineNumber: number | undefined;
   let lineEnd: number | undefined;
-  const lineMatch = path.match(/#L(\d+)(?:-(\d+))?$/);
+  const lineMatch = path.match(/(?:#|%23)L(\d+)(?:-(\d+))?$/);
   if (lineMatch) {
     lineNumber = parseInt(lineMatch[1], 10);
     if (lineMatch[2]) {
