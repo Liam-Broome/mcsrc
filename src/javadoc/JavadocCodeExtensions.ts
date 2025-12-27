@@ -6,7 +6,7 @@ import {
 } from "monaco-editor";
 import type { DecompileResult } from "../logic/Decompiler";
 import { getTokenLocation, type Token, type TokenLocation } from "../logic/Tokens";
-import { activeJavadocToken, getJavadocForToken, javadocData, type JavadocData, type JavadocString } from "./Javadoc";
+import { activeJavadocToken, getJavadocForToken, javadocData, refreshJavadocDataForClass, type JavadocData, type JavadocString } from "./Javadoc";
 
 type monaco = typeof import("monaco-editor");
 
@@ -83,6 +83,10 @@ export function applyJavadocCodeExtensions(monaco: monaco, editor: editor.IStand
             const token: Token = args[0];
             activeJavadocToken.next(token);
         }
+    });
+
+    refreshJavadocDataForClass(decompile.className.replace(".class", "")).catch(err => {
+        console.error("Failed to refresh Javadoc data for class:", err);
     });
 
     return {

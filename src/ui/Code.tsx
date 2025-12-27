@@ -24,7 +24,6 @@ import { getNextJumpToken, nextUsageNavigation, usageQuery } from '../logic/Find
 import { setupJavaBytecodeLanguage } from '../utils/JavaBytecode';
 import { IS_JAVADOC_EDITOR } from '../site';
 import { applyJavadocCodeExtensions } from '../javadoc/JavadocCodeExtensions';
-import { javadocData } from '../javadoc/Javadoc';
 
 const IS_DEFINITION_CONTEXT_KEY_NAME = "is_definition";
 

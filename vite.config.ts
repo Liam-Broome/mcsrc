@@ -9,4 +9,14 @@ export default defineConfig({
     plugins: () => [comlink()],
     format: 'es',
   },
+  // For javadoc API during development
+  server: {
+    proxy: {
+      '/v1': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

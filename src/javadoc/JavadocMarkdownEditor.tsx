@@ -1,15 +1,17 @@
 import { Editor, useMonaco } from "@monaco-editor/react";
-import type { Token } from "../logic/Tokens";
 import { useObservable } from "../utils/UseObservable";
-import { observeJavadocForToken, setTokenJavadoc } from "./Javadoc";
 import { currentResult } from "../logic/Decompiler";
 import { useEffect, useRef } from "react";
-import type { CancellationToken, editor, languages, Position } from "monaco-editor";
+import type { editor } from "monaco-editor";
 import { JavdocCompletionProvider } from "./JavadocCmpletionProvider";
 
-const JavadocMarkdownEditor = ({ token }: { token: Token; }) => {
-    const value = useObservable(observeJavadocForToken(token)) || "";
-
+const JavadocMarkdownEditor = ({
+    value,
+    onChange
+}: {
+    value: string;
+    onChange: (newValue: string | undefined) => void;
+}) => {
     const monaco = useMonaco();
     const decompileResult = useObservable(currentResult);
     const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
@@ -28,10 +30,8 @@ const JavadocMarkdownEditor = ({ token }: { token: Token; }) => {
         <Editor
             height="100%"
             defaultLanguage="markdown"
-            value={value}
-            onChange={(newValue) => {
-                setTokenJavadoc(token, newValue);
-            }}
+            defaultValue={value}
+            onChange={onChange}
             theme="vs-dark"
             options={{
                 minimap: { enabled: false },

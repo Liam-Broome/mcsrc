@@ -1,6 +1,5 @@
 import { Button, ConfigProvider, Drawer, Flex, Splitter, theme } from 'antd';
 import Code from "./Code.tsx";
-import ProgressModal from './ProgressModal.tsx';
 import SideBar from './SideBar.tsx';
 import { useState } from 'react';
 import { useObservable } from '../utils/UseObservable.ts';
@@ -12,8 +11,7 @@ import { FilepathHeader } from './FilepathHeader.tsx';
 import { enableTabs } from '../logic/Settings.ts';
 import { MenuFoldOutlined } from '@ant-design/icons';
 import { TabsComponent } from './TabsComponent.tsx';
-import IndexProgressModal from './IndexProgressModal.tsx';
-import JavadocModal from '../javadoc/JavadocModal.tsx';
+import Modals from './Modals.tsx';
 
 const App = () => {
     const isSmall = useObservable(isThin);
@@ -33,9 +31,7 @@ const App = () => {
                 },
             }}
         >
-            <ProgressModal />
-            <IndexProgressModal />
-            <JavadocModal />
+            <Modals />
             {enableDiff ? <DiffView /> : isSmall ? <MobileApp /> : <LargeApp />}
         </ConfigProvider>
     );
