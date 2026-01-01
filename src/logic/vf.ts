@@ -25,9 +25,14 @@ export interface Config {
 let decompileFunc: ((name: string, options: Config) => Promise<string>) | null = null;
 export const decompile = async (name: string, options: Config) => {
     if (!decompileFunc) {
-        const { exports } = await load(wasmPath, { noAutoImports: true });
-
-        decompileFunc = exports.decompile;
+        try {
+            const { exports } = await load(wasmPath, { noAutoImports: true });
+            decompileFunc = exports.decompile;
+        } catch (e) {
+            console.warn("Failed to load WASM module (non-compliant browser?), falling back to JS implementation", e);
+            const { decompile: decompileJS } = await import("@run-slicer/vf/vf.runtime.js");
+            decompileFunc = decompileJS;
+        }
     }
 
     return decompileFunc!(name, options);
