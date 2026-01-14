@@ -76,3 +76,17 @@ html, body {margin: 0; height: 100%; overflow: hidden}
   background-color: rgba(255, 255, 100, 0.3) !important;
   width: 4px !important;
 }
+
+.ant-select-dropdown {
+  min-width: 200px !important;
+  width: auto !important;
+}
+
+.ant-select-dropdown .rc-virtual-list-holder-inner {
+  width: auto !important;
+  min-width: 200px !important;
+}
+
+.ant-select-dropdown .ant-select-item {
+  white-space: nowrap !important;
+}
